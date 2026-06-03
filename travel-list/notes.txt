@@ -1,0 +1,14 @@
+working with forms in react we can also use item in the react 
+          <Item key={item.id} item={item} />
+
+Controlled element to work with forms in react:
+
+
+different between states and props:
+Internal data by component while props is external data
+
+props:
+props are read onlt
+similar to function parameter
+read only
+receving new props causes component to rerender
