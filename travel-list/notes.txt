@@ -4,6 +4,8 @@ working with forms in react we can also use item in the react
 Controlled element to work with forms in react:
 
 
+//---------------------Theory--------------------------------
+
 different between states and props:
 Internal data by component while props is external data
 
@@ -12,3 +14,20 @@ props are read onlt
 similar to function parameter
 read only
 receving new props causes component to rerender
+
+Thinking in state , how to communicate between parent and child class
+
+Local State:
+state needed onlyl nu one   or few componets 
+state that is defined in a component and child components have acess to item
+
+
+Global state:
+state that many components might need 
+shared statae that is accessible to every component  in the enitire 
+
+//----------------------------------------------------------------
+
+Thinking About State Management:
+deleting the items from list
+doing packed state

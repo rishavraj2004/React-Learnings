@@ -1,19 +1,40 @@
 import { useState } from "react";
 
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-  { id: 2, description: "mobile", quantity: 1, packed: true },
-];
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+//   { id: 2, description: "mobile", quantity: 1, packed: true },
+// ];
 
 
 export default function App() {
+  // THIS USE STATE IS IN THE APP BECAUSE I WANT TO USE IT IN THE PACKINGLIST WHICH IS THE PARENT CLASS OF THE APP
+  //This is basically lifting up state 
+  const [items, setItems] = useState([]);
+
+
+  function handleAddItems(item) {
+    setItems(items => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItems(items => items.filter(item => item.id !== id));
+  }
+
+  function handleTogggleItem(id) {
+    setItems(items => items.map(item => item.id === id ? { ...item, packed: !item.packed } : item))
+
+  }
+
+
+
   return <div className="app">
     <Logo />
-    <Form />
-    <PackingList />
-    <Stats />
+    {/* sending props in form */}
+    <Form onAddItems={handleAddItems} />
+    <PackingList items={items} onDeleteItem={handleDeleteItem} onTogggleItems={handleTogggleItem} />
+    <Stats items={items} />
   </div>
 
 }
@@ -27,18 +48,22 @@ function Logo() {
 }
 
 
-function Form() {
+function Form({ onAddItems }) {
 
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
 
 
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!description) return;
 
+    const newItem = { description, quantity, packed: false, id: Date.now() }
+
+    if (!description) return;
+    onAddItems(newItem)
     // reset form after submit
     setDescription("")
     setQuantity(1)
@@ -63,33 +88,50 @@ function Form() {
 
 }
 
-function PackingList() {
+function PackingList({ items, onDeleteItem, onTogggleItems }) {
   return (
     <div className="list">
 
       <ul >
-        {initialItems.map((item) => (
-          <Item key={item.id} item={item} />
+        {items.map((item) => (
+          <Item key={item.id} onDeleteItem={onDeleteItem} item={item} onTogggleItems={onTogggleItems} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem, onTogggleItems }) {
   return (
     <li>
+      <input type="checkbox" value={item.packed} onChange={() => onTogggleItems(item.id)} />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
 
 
-function Stats() {
+function Stats({ items }) {
+
+  if (!items.length) return (
+    <p className="stats">
+      <em>Start adding some items to you packing list</em>
+    </p>
+  )
+
+
+  //for stats of number of products derived state
+  const numItems = items.length;
+  const numPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numPacked / numItems) * 100)
   return <footer className="stats">
-    <em>You have X items on your list, and you already packed X</em>
+    <em>
+      {percentage === 100 ? 'You gt everything ready to go- >' :
+        `You have ${numItems} items on your list, and you already packed ${numPacked} (${percentage}%)`
+      }
+    </em>
   </footer>
 }
