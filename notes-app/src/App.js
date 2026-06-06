@@ -10,6 +10,10 @@ export default function App() {
   function handleDeleteNotes(id) {
     setNotes(notes => notes.filter(note => note.id !== id));
   }
+  function handleClearList() {
+    const confirmed = window.confirm('Are you sure you want to clear the list?')
+    if (confirmed) setNotes([])
+  }
 
 
 
@@ -18,8 +22,8 @@ export default function App() {
     <div>
       <Logo />
       <Form onAddNotes={handleAddNotes} />
-      <NoteList notes={notes} onDeleteNotes={handleDeleteNotes} />
-
+      <NoteList notes={notes} onDeleteNotes={handleDeleteNotes} onClearList={handleClearList} />
+      <Stats notes={notes} />
     </div>
   )
 }
@@ -45,6 +49,7 @@ function Form({ onAddNotes }) {
 
     if (!description) return;
     onAddNotes(newNote);
+    setDescription("")
 
   }
 
@@ -54,7 +59,7 @@ function Form({ onAddNotes }) {
     <div className="form">
       <form className="add-form" onSubmit={handleSubmit}>
         <h3 className="form-heading">Add your note!😊</h3>
-        <input type="text" placeholder="Type here!" onChange={(e) => setDescription(e.target.value)} />
+        <input type="text" placeholder="Type here!" value={description} onChange={(e) => setDescription(e.target.value)} />
         <button className="add-button">Add</button>
       </form>
     </div>
@@ -79,7 +84,7 @@ function Item({ number, note, onDeleteNotes }) {
   )
 }
 
-function NoteList({ notes, onDeleteNotes }) {
+function NoteList({ notes, onDeleteNotes, onClearList }) {
   return (
     <div className="list">
       <ul>
@@ -88,6 +93,29 @@ function NoteList({ notes, onDeleteNotes }) {
           <Item key={note.id} note={note} number={index + 1} onDeleteNotes={onDeleteNotes} />
         ))}
       </ul>
+      <button onClick={onClearList}>Clear List</button>
+
     </div>
+  )
+}
+
+
+function Stats({ notes }) {
+  if (!notes.length) {
+    return (
+      <p className="stats">
+        <em>No Notes Yet</em>
+      </p>
+    );
+  }
+
+  const numNotes = notes.length;
+
+  return (
+    <footer className="stats">
+      <em>
+        You have {numNotes} in Your notes manager app
+      </em>
+    </footer>
   )
 }
