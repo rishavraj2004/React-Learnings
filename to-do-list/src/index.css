@@ -1,16 +1,6 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* ==========================
+   Global Styles
+========================== */
 
 * {
   margin: 0;
@@ -18,40 +8,159 @@ code {
   box-sizing: border-box;
 }
 
-.logo {
-  font-size: large;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  border: 1px solid black;
-  padding: 20px 150px;
-
-
+body {
+  background: #f4f7fc;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
+
+/* ==========================
+   App Container
+========================== */
 
 .App {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-
-
+  padding: 50px 20px;
 }
 
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
 
-.form {
+/* ==========================
+   Logo
+========================== */
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo h3 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* ==========================
+   Form
+========================== */
+
+.add-form {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-
+  gap: 10px;
+  margin-bottom: 25px;
 }
 
 .input-task {
-  height: 30px;
-  width: 250px;
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.input-task:focus {
+  outline: none;
+  border-color: #4f46e5;
 }
 
 .input-button {
-  height: 30px;
-  width: 50px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.input-button:hover {
+  opacity: 0.9;
+}
+
+/* ==========================
+   Task List
+========================== */
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #f8f9fc;
+  border-radius: 8px;
+}
+
+li span {
+  flex: 1;
+  font-size: 1rem;
+}
+
+li button {
+  border: none;
+  background: #ef4444;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+li button:hover {
+  opacity: 0.9;
+}
+
+/* ==========================
+   Checkbox
+========================== */
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* ==========================
+   Clear Button
+========================== */
+
+.clear-btn {
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  opacity: 0.9;
+}
+
+/* ==========================
+   Stats
+========================== */
+
+.stats {
+  margin-top: 25px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.stats em {
+  font-size: 1rem;
+  color: #555;
 }
