@@ -24,7 +24,7 @@ export default function App() {
                 <Logo />
                 <Form onAddItems={handleAddItems} />
                 <TaskList items={items} onDeleteItem={handleDelteItems} onToggleItems={handleToggleItems} onClearItems={handleClearList} />
-                <Stats />
+                <Stats items={items} />
             </div>
         </div>
 
@@ -111,10 +111,33 @@ function TaskList({ items, onDeleteItem, onToggleItems, onClearItems }) {
 }
 
 
-function Stats() {
-    return <footer className="stats">
-        <em>
-            You have not finished yet
-        </em>
-    </footer>
+function Stats({ items }) {
+    if (!items.length) {
+        return (
+            <p className="stats">
+                <em>Start adding your tasks 😊</em>
+            </p>
+        );
+    }
+
+    const numItems = items.length;
+
+    // Count completed tasks
+    const numCompleted = items.filter(
+        (item) => item.completed
+    ).length;
+
+    const percentage = Math.round(
+        (numCompleted / numItems) * 100
+    );
+
+    return (
+        <footer className="stats">
+            <em>
+                {percentage === 100
+                    ? "You completed all tasks! 🎉"
+                    : `You have ${numItems} tasks, completed ${numCompleted} (${percentage}%).`}
+            </em>
+        </footer>
+    );
 }
