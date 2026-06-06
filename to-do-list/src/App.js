@@ -102,6 +102,9 @@ function TaskList({ items, onDeleteItem, onToggleItems, onClearItems }) {
                     />
                 ))}
             </ul>
+            <button className="clear-btn" onClick={onClearItems}>
+                Clear All
+            </button>
         </div>
     )
 
