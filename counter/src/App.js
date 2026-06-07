@@ -19,9 +19,9 @@ export default function App() {
 
       <div className="box">
 
-        <button onClick={handlePrevious}>Previous</button>
+        <button onClick={handlePrevious}>-</button>
         <p>Count {count} </p>
-        <button onClick={handleNext}>Next</button>
+        <button onClick={handleNext}>+</button>
       </div>
 
     </div>
