@@ -51,12 +51,13 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
+  const [movies, setMovies] = useState(tempMovieData);
 
 
   return (
     <>
-      <NavBar />
-      <Main />
+      <NavBar movies={movies} />
+      <Main movies={movies} />
 
 
 
@@ -64,13 +65,13 @@ export default function App() {
   );
 }
 
-function NavBar() {
+function NavBar({ movies }) {
   return (
     <nav className="nav-bar">
 
       <Logo />
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   )
 }
@@ -98,16 +99,16 @@ function Search() {
   )
 }
 
-function NumResults() {
+function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   )
 }
 
 
-function Main() {
+function Main({ movies }) {
 
 
 
@@ -115,7 +116,7 @@ function Main() {
 
   return (
     <main className="main">
-      <ListBox />
+      <ListBox movies={movies} />
       <WatchedBox />
 
 
@@ -123,7 +124,7 @@ function Main() {
   )
 }
 
-function ListBox() {
+function ListBox({ movies }) {
 
   const [isOpen1, setIsOpen1] = useState(true);
 
@@ -137,15 +138,13 @@ function ListBox() {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && (<MovieList />)}
+      {isOpen1 && (<MovieList movies={movies} />)}
     </div>
   )
 }
 
-function MovieList() {
-  const [movies, setMovies] = useState(tempMovieData);
-  console.log("Movies data:", movies); // Check if data exists
-  console.log("Number of movies:", movies.length); // Check length
+function MovieList({ movies }) {
+
   return (
     <ul className="list">
       {movies?.map((movie) => (
